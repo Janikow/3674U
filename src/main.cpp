@@ -115,13 +115,16 @@ void opcontrol() {
 
 
 	while (true) {
+
+		double currentRotation = CascadeLiftMotor.get_position();
+
 		// Arcade control scheme
 		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		Hardware::left_motors.move(dir - turn);                      // Sets left motor voltage
 		Hardware::right_motors.move(dir + turn);                     // Sets right motor voltage
 		
-		if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
+		if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) // Moves the cascade system upwards with a max rotation of cas * 360
 		{
     		if (currentRotation < CAS_MAX_ROTATION)
     		{
@@ -132,7 +135,7 @@ void opcontrol() {
 				CascadeLiftMotor.brake();
 			}
 		}
-		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
+		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) // Limits the cascade from moving downwards
 		{
     		if (currentRotation > 0)
     		{
