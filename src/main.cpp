@@ -121,28 +121,27 @@ void opcontrol() {
 		Hardware::left_motors.move(dir - turn);                      // Sets left motor voltage
 		Hardware::right_motors.move(dir + turn);                     // Sets right motor voltage
 
-		if (Controller.ButtonL1.pressing()) // If L1 pressed it does the function
+		if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
 		{
-    		if (currentCLMRotation < 360) // Extends the cascade until 360 units of rotation honestly no idea what 360 units of rotation is ngl I have no sensors for this
+    		if (currentCLMRotation < 360)
     		{
-        		CascadeLiftMotor.spin(forward);
+        		CascadeLiftMotor.move(127);
         		currentCLMRotation++;
     		}
 		}
-		else if (Controller.ButtonL2.pressing()) // Retracts the cascade but prevents it from going negative because yea
+		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
 		{
     		if (currentCLMRotation > 0)
     		{
-        		CascadeLiftMotor.spin(reverse);
+        		CascadeLiftMotor.move(-127);
         		currentCLMRotation--;
     		}
 		}
 		else
 		{
-    		CascadeLiftMotor.stop(hold); // Safety thing idk 
+    		CascadeLiftMotor.brake();
 		}
-		
-		
+	
 		pros::delay(20);                               // Run for 20 ms then update
 	}
 }
