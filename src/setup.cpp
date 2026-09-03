@@ -6,7 +6,7 @@
 
 pros::MotorGroup Hardware::left_motors({1, 2, 3});
 pros::MotorGroup Hardware::right_motors({4, 5, 6});
-
-int currentCLMRotation = 0
-
 pros::Motor CascadeLiftMotor(7);
+
+double currentRotation = CascadeLiftMotor.get_position();
+CascadeLiftMotor.tare_position();
