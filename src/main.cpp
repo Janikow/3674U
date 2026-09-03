@@ -120,6 +120,27 @@ void opcontrol() {
 		int turn = master.get_analog(ANALOG_RIGHT_X);  // Gets the turn left/right from right joystick
 		Hardware::left_motors.move(dir - turn);                      // Sets left motor voltage
 		Hardware::right_motors.move(dir + turn);                     // Sets right motor voltage
+
+		if (Controller.ButtonL1.pressing())
+		{
+    		if (currentCLMRotation < 360)
+    		{
+        		CascadeLiftMotor.spin(forward);
+        		currentCLMRotation++;
+    		}
+		}
+		else if (Controller.ButtonL2.pressing())
+		{
+    		if (currentCLMRotation > 0)
+    		{
+        		CascadeLiftMotor.spin(reverse);
+        		currentCLMRotation--;
+    		}
+		}
+		else
+		{
+    		CascadeLiftMotor.stop(hold);
+		}
 		
 		
 		pros::delay(20);                               // Run for 20 ms then update
