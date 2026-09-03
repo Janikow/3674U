@@ -10,3 +10,4 @@ pros::Motor CascadeLiftMotor(7);
 
 double currentRotation = CascadeLiftMotor.get_position();
 CascadeLiftMotor.tare_position();
+const double CAS_MAX_ROTATION = 3 * 360; // 3 full rotations
