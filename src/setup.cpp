@@ -9,4 +9,4 @@ pros::MotorGroup Hardware::right_motors({4, 5, 6});
 
 int currentCLMRotation = 0
 
-motor cascadeLiftMotor = motor(PORT7);
+pros::Motor CascadeLiftMotor(7);
