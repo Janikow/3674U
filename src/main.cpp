@@ -123,7 +123,7 @@ void opcontrol() {
 		
 		if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
 		{
-    		if (currentRotation < 360)
+    		if (currentRotation < CAS_MAX_ROTATION)
     		{
         		CascadeLiftMotor.move(127);
     		}
