@@ -116,7 +116,7 @@ void opcontrol() {
 
 	while (true) {
 
-		double currentRotation = CascadeLiftMotor.get_position();
+		double currentRotation = CascadeLiftMotors.get_position(); // Grabs the current rotation from the cascade motorgroup
 
 		// Arcade control scheme
 		int dir = master.get_analog(ANALOG_LEFT_Y);    // Gets amount forward/backward from left joystick
@@ -126,7 +126,7 @@ void opcontrol() {
 		
 		if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)) // Moves the cascade system upwards with a max rotation of cas * 360
 		{
-    		if (currentRotation < CAS_MAX_ROTATION)
+    		if (currentRotation < CAS_MAX_ROTATION) // Compares to the max amount of rotation allowed
     		{
         		CascadeLiftMotor.move(127);
     		}
@@ -137,7 +137,7 @@ void opcontrol() {
 		}
 		else if (Controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)) // Limits the cascade from moving downwards
 		{
-    		if (currentRotation > 0)
+    		if (currentRotation > 0) // Compares to the minimum amount of rotation allowed
     		{
         		CascadeLiftMotor.move(-127);
     		}
@@ -149,6 +149,20 @@ void opcontrol() {
 		else
 		{
     		CascadeLiftMotor.brake();
+		}
+
+		if (Controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_Y)) // Switch for claw grip, idk how this is actually gonna be used so might remove this
+		{
+			GRIP = !GRIP; // Flips the boolean
+
+			if (GRIP)
+			{
+				Claw.move(127);
+			}
+			else
+			{
+				Claw.move(-127);
+			}
 		}
 	
 		pros::delay(20);                               // Run for 20 ms then update
